@@ -1,5 +1,5 @@
 import { SAML, SamlConfig } from '@node-saml/node-saml';
-import { signAuthnRequestPost } from '@node-saml/node-saml/lib/saml-post-signing';
+// import { signAuthnRequestPost } from '@node-saml/node-saml/lib/saml-post-signing';
 import { signAuthRequest } from './signAuthRequest';
 
 import { SpidRequest } from './request';
@@ -40,7 +40,10 @@ export class SpidSAML extends SAML {
            action: 'after',
            nodeName: 'AuthnRequest',
          });
-     
+         console.log('***************************** SPID DEBUG *********** SIGNED')
+         console.log(xml)
+         console.log('***************************** SPID DEBUG *********** SIGNED')
+         
     }
     const { cache } = this.spidConfig;
     await cache.set(id, xml);
