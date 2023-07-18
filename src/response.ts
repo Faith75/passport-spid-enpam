@@ -16,6 +16,9 @@ import { isISODateTimeUTC } from './util';
 
 export class SpidResponse extends XML.XML {
   validate(req: SpidRequest, config: SpidConfig, saml: SamlOptions) {
+    console.log('^^^^in validate saml response:',req)
+    console.log('^^^^in validate saml response:',config)
+    console.log('^^^^in validate saml response:',saml)
     assert(this.response, `Missing response`);
     assert(this.assertion, `Missing assertion`);
     const { SAML_ASSERTION: A, SAML_PROTOCOL: P } = NS;

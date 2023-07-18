@@ -80,12 +80,7 @@ export class SpidStrategy extends MultiSamlStrategy {
   authenticate(req: RequestWithUser, options: AuthenticateOptions): void {
     this._getSpidSamlOptions(req)
       .then((config) => {
-        console.log('^^^^^^debug config^^^^', config)
-        console.log('^^^^^^debug getSpidConfig^^^^', this.getSpidConfig())
-
         const saml = new SpidSAML(config, this.getSpidConfig());
-        console.log('^^^^^^debug spidSAML^^^^', saml)
-
         const strategy = Object.assign({}, this, { _saml: saml });
         Object.setPrototypeOf(strategy, this);
         return AbstractStrategy.prototype.authenticate.call(
@@ -114,14 +109,11 @@ export class SpidStrategy extends MultiSamlStrategy {
   }
 
   async _getSpidSamlOptions(req: Request): Promise<SamlConfig> {
-    console.log('^^^^^^^^^^this.getSpidConfig(): ',this.getSpidConfig())
-    console.log('^^^^^^^^^^this.idps: ',this.idps)
     const config = this.getSpidConfig();
     const { saml, spid } = config;
     const idps = this.idps;
     const { getIDPEntityIdFromRequest } = config.spid;
     const entityId = await getIDPEntityIdFromRequest(req);
-    console.log('^^^^^^^^^^entityId: ',entityId)
 
     let idp = idps.find((x) => x.entityId === entityId);
     if (!idp && entityId) {
