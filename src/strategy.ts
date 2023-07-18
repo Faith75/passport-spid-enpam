@@ -81,6 +81,9 @@ export class SpidStrategy extends MultiSamlStrategy {
     this._getSpidSamlOptions(req)
       .then((config) => {
         const saml = new SpidSAML(config, this.getSpidConfig());
+        console.log('^^^^^^debug getSpidConfig^^^^', this.getSpidConfig())
+        console.log('^^^^^^debug spidSAML^^^^', saml)
+        
         const strategy = Object.assign({}, this, { _saml: saml });
         Object.setPrototypeOf(strategy, this);
         return AbstractStrategy.prototype.authenticate.call(
